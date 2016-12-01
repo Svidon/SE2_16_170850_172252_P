@@ -4,22 +4,22 @@ server
 
 //express lib
 var express = require('express');
-//inspect
+//inspect   //COMMENTO IMPRECISO
 var util = require('util');
 //instantiate express
 var app = express();
-//POST
+//POST      //COMMENTO IMPRECISO
 var bodyParser = require('body-parser');
 //for templates
 var bind = require('bind');
 
-var miomodulo = require('./lib/lib.js');
+var miomodulo = require('./lib/lib.js');  //NON C'E' COMMENTO PER CAPIRE LE FUNZIONALITA'
 app.use(express.static(__dirname + '/public')); // serve per far funzionare il collegamento dei js e css
 
 /******************************************************************************************************
 CREAZIONE TEMPLATE
 ******************************************************************************************************/
-//listen in a specific port
+//listen in a specific port   //LA FUNZIONE SETTA LA PORTA, NON FA ANCORA IL LISTEN
 app.set('port', (process.env.PORT || 1337));
 //create a server
 app.get('/', function(req, res) {
@@ -60,19 +60,19 @@ app.post('/delete', function(req, res) {
 		if ( typeof req.body.iIDDelete !== 'undefined' && req.body.iIDDelete)
 			elimina = parseInt(req.body.iIDDelete);
 		else {
-			elimina = true;
+			elimina = true; //VARIABILE SBAGLIATA, DOVREBBE ESSERE errore NON elimina
 		} 	
-	} else {
+	} else { //SI DOVREBBE AGGIUNGERE errore = true  PER POTER POI ENTRARE NELL'IF SUCCESSIVO
 		msg = "body undefined";
 	}
 	if (errore){
-		console.log("errore");
-	} else {
-		var posizione = miomodulo.cercaDipendente(elimina);
+		console.log("errore"); //CONSOLE LOG CHE SI PUO' TOGLIERE
+	} else { //QUESTA PARTE DI CODICE NON DOVREBBE ESSERE ESEGUITA SE IL BODY DELLA REQUEST E' UNDEFINED (E' INUTILE CERCARE UN DIPENDENTE CON COME ID UNA STRINGA VUOTA)
+		var posizione = miomodulo.cercaDipendente(elimina); //NON C'E' UN CONTROLLO PER GESTIRE IL FATTO CHE IL DIPENDENTE NON ESISTA
 		miomodulo.delDipendente(posizione);
-		console.log("\n\nELIMANA id: "+elimina+" in pos: "+posizione);
-		console.log(msg);
-		miomodulo.stampa();
+		console.log("\n\nELIMANA id: "+elimina+" in pos: "+posizione); //CONSOLE LOG CHE SI PUO' TOGLIERE. LA POSIZIONE NELLA LISTA NON E' COMUNQUE UTILE PER QUESTO LOG
+		console.log(msg); //CONSOLE LOG CHE SI PUO' TOGLIERE
+		miomodulo.stampa(); //STAMPA NON NELLA PAGINA, SI PUO' TOGLIERE
 	}
 	//bind to template
 	bind.toFile('tpl/home.tpl', {
@@ -101,7 +101,7 @@ app.post('/search', function(req, res) {
 	var cerca = "";
 	var errore = false;
 	
-	if ( typeof req.body !== 'undefined' && req.body){
+	if ( typeof req.body !== 'undefined' && req.body){ //PARTE DI CODICE RIPETUTA FINO A RIGA 121 ANCHE IN DELETE. SI POTEVA COSTRUIRE UNA FUNZIONE A CUI PASSARE LA RICHIESTA
         //the ontent of the POST receiced
 		msg = "req.body: " + util.inspect(req.body);
         //content of the post
@@ -111,19 +111,19 @@ app.post('/search', function(req, res) {
 		else {
 			errore = true;
 		} 	
-	} else {
+	} else { //SI DOVREBBE AGGIUNGERE errore = true  PER POTER POI ENTRARE NELL'IF SUCCESSIVO
 		msg = "body undefined";
 	}
 	
 	if (errore){
-		console.log("errore");
+		console.log("errore"); //CONSOLE LOG CHE SI PUO' TOGLIERE
 	}
-	else{
-		var posizione = miomodulo.cercaDipendente(cerca);
+	else{ //QUESTA PARTE DI CODICE NON DOVREBBE ESSERE ESEGUITA SE IL BODY DELLA REQUEST E' UNDEFINED (E' INUTILE CERCARE UN DIPENDENTE CON COME ID UNA STRINGA VUOTA)
+		var posizione = miomodulo.cercaDipendente(cerca); //NON C'E' UN CONTROLLO PER GESTIRE IL FATTO CHE IL DIPENDENTE NON ESISTA
 		var dipendente = miomodulo.getDipendente(posizione);
-		console.log("\n\nCERCA id: "+cerca+" in pos: "+posizione);
-		console.log(msg);
-		miomodulo.stampa();
+		console.log("\n\nCERCA id: "+cerca+" in pos: "+posizione); //CONSOLE LOG CHE SI PUO' TOGLIERE
+		console.log(msg); //CONSOLE LOG CHE SI PUO' TOGLIERE
+		miomodulo.stampa(); //STAMPA NON NELLA PAGINA, SI PUO' TOGLIERE
 	}
 	
 	//bind to template
@@ -154,7 +154,7 @@ app.post('/insert', function(req, res) {
 	var errore = false;
 	var dipendente = miomodulo.init();
 
-	if ( typeof req.body !== 'undefined' && req.body)
+	if ( typeof req.body !== 'undefined' && req.body) //SI POTEVA SFRUTTARE UNA FUNZIONE A PARTE DESCRITTA IN UN REVIEW PRECEDENTE E
 	{
         //the ontent of the POST receiced
 		msg = "req.body: " + util.inspect(req.body);
@@ -197,23 +197,23 @@ app.post('/insert', function(req, res) {
 			dipendente.salary = "not defined";	
 			errore = true;
 		}   	
-	} else {
+	} else { //SI DOVREBBE AGGIUNGERE errore = true  PER POTER POI ENTRARE NELL'IF SUCCESSIVO
 		msg = "body undefined";
 	}
 	
 	if (errore){
 		console.log("errore");
-	} else {
+	} else { //QUESTA PARTE DI CODICE NON DOVREBBE ESSERE ESEGUITA SE IL BODY DELLA REQUEST E' UNDEFINED (E' INUTILE CERCARE UN DIPENDENTE CON COME ID UNA STRINGA VUOTA)
 		var posizione = miomodulo.cercaDipendente(dipendente.id);
 		if(posizione==-1){
-			console.log("\n\nINSERISCI elem");
+			console.log("\n\nINSERISCI elem"); //CONSOLE LOG CHE SI PUO' TOGLIERE
 			miomodulo.aggiungiDipendente(dipendente);
 		} else{
-			console.log("\n\nMODIFICA elem");
+			console.log("\n\nMODIFICA elem"); //CONSOLE LOG CHE SI PUO' TOGLIERE
 			miomodulo.modificaDipendente(dipendente,posizione);	
 		}
-		console.log(msg);
-		miomodulo.stampa();
+		console.log(msg); //CONSOLE LOG CHE SI PUO' TOGLIERE
+		miomodulo.stampa(); //STAMPA NON NELLA PAGINA, SI PUO' TOGLIERE
 	}
 	
 	//bind to template
