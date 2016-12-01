@@ -11,37 +11,52 @@ var cheerio = require('cheerio');
 //Istanzio express
 var app = express();
 
-//Metodo get
+//Get per il parse delle notizie dell'universita'
 app.get('/parse', function (req, res) {
 
-  url = 'http://webmagazine.unitn.it/news/ateneo';
+	//Paso l'url da prendere
+	url = 'http://webmagazine.unitn.it/news/ateneo';
 
-  request(url, function(error, response, html){
-    if(!error){
-      var $ = cheerio.load(html);
+	//Invio una richiesta per accedere all'html
+	request(url, function(error, response, html){
+    	if(!error){
+    		//Carico l'html
+      		var $ = cheerio.load(html);
 
-      var title, release, rating;
-      var json = { title : "", description : ""};
+      		//Instanzio variabili utili: lista dei titoli, lista degli urls, lista delle descrizioni, lista degli oggetti da inserire nel json
+      		var title = [];
+      		var urls = [];
+      		var description = [];
+      		var json = [];
 
-      $('.views-row views-row-1 views-row-odd views-row-first').filter(function(){
-        var data = $(this);
-        title = data.children().first().text().trim();
+      		//Seleziono gli elementi che contengono il titolo e lo salvo in title
+	      	$('a[href*="http://webmagazine.unitn.it/news/"]').each(function(){
+	        	var data = $(this);
+	        	title.push(data.text());
+	      	});
 
-        json.title = title;
-      })
+	      	//Seleziono gli elementi che contengono la descrizione e lo salvo in description
+      		$('.sottotitolo-news').each(function(){
+        		var data = $(this);
+        		description.push(data.text());
+      		});
+    	}
 
-      $('.sottotitolo-news').filter(function(){
-        var data = $(this);
-        description = data.children().first().text().trim();
+    	//Aggiungo tutti gli oggetti alla lista json
+    	for(var i = 0; i < title.length; i++){
+    		//Oggetto temporaneo per salvarmi gli elementi come unico oggetto da pushare in json
+    		var obj = {title : "", description : ""};
+    		obj.title = title[i];
+    		obj.description = description[i];
 
-        json.description = description;
-      })
-    }
+    		json.push(obj);
+    	}
 
-    fs.writeFile('output.json', JSON.stringify(json, null, 4), function(err){
-      console.log('File successfully written! - Check your project directory for the output.json file');
-    })
+    	//Scrivo tutti gli oggetti salvati in un file json
+    	fs.writeFile('notizie_uni.json', JSON.stringify(json, null, 2), function(err){
+      		console.log('File successfully written! - Check your project directory for the output.json file');
+    	})
 
-    res.send('Check your console!')
-})
+    	res.redirect("./pages/home.html");
+	})
 });

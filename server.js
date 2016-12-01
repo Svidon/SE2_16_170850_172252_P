@@ -1,7 +1,6 @@
-//Librerie
+//Librerie per creare il server
 var http = require('http');
 var express = require('express');
-var util = require('util');
 //Per scrivere nel file Json
 var fs = require('fs');
 //Per effettuare azioni sull'url dato
