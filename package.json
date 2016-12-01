@@ -19,6 +19,9 @@
   "homepage": "https://github.com/Svidon/SE2_16_170850_172252_P#readme",
   "dependencies": {
     "bootstrap": "^3.3.7",
-    "express": "^4.14.0"
+    "cheerio": "^0.22.0",
+    "express": "^4.14.0",
+    "fs": "0.0.1-security",
+    "request": "^2.79.0"
   }
 }

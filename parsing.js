@@ -1,7 +1,6 @@
-//Librerie
-var http = require('http');
+//Libraries
+//Per le richieste http
 var express = require('express');
-
 //Per scrivere Json
 var fs = require('fs');
 //Per effettuare azioni sull'url dato
@@ -9,20 +8,8 @@ var request = require('request');
 //JQuery plugin per fare lo scrape
 var cheerio = require('cheerio');
 
-//Instanzio express
+//Istanzio express
 var app = express();
-//Setto la porta e la directory
-app.set('port', (process.env.PORT || 1337));
-app.use('/', express.static(__dirname + '/'));
-
-
-//Implemento il get iniziale
-app.get('/', function(req, res)
-{
-	res.redirect("./pages/home.html");
-});
-
-
 
 //Metodo get
 app.get('/parse', function (req, res) {
@@ -36,16 +23,16 @@ app.get('/parse', function (req, res) {
       var title, release, rating;
       var json = { title : "", description : ""};
 
-      $('[href]').filter(function(){
+      $('.views-row views-row-1 views-row-odd views-row-first').filter(function(){
         var data = $(this);
-        title = data.text();
+        title = data.children().first().text().trim();
 
         json.title = title;
       })
 
       $('.sottotitolo-news').filter(function(){
         var data = $(this);
-        description = data.text();
+        description = data.children().first().text().trim();
 
         json.description = description;
       })
@@ -58,11 +45,3 @@ app.get('/parse', function (req, res) {
     res.send('Check your console!')
 })
 });
-
-
-
-//Dove il server fa il listen
-app.listen(1337, '127.0.0.1');
- 
-//Check dell'attivita
-console.log('Server running at http://127.0.0.1:1337/');

@@ -27,6 +27,8 @@
 			</div>
 		</nav>
 	
+		<br>
+
 		<div class="container">
 			<ul class="nav nav-tabs nav-justified">
 				<li col="s3" class="active"><a href="#" id="novita">Novità</a></li>
@@ -36,8 +38,12 @@
 			</ul>
 		</div>
 
+		<br>
+
 		<div class="container">
-			<button action="parsing.js">Show!<button>
+			<form id="toParse" action="http://127.0.0.1:1337/parse" method="get">
+				<button type="submit">Show!</button>
+			</form>
 		</div>
 
 	</body>
