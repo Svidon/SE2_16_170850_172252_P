@@ -8,6 +8,9 @@ var request = require('request');
 //JQuery plugin per fare lo scrape
 var cheerio = require('cheerio');
 
+//Mio pacchetto per fare lo scrape
+var scrape = require('parsing.js');
+
 //Instanzio express
 var app = express();
 //Setto la porta e la directory
@@ -22,11 +25,17 @@ app.get('/', function(req, res)
 });
 
 
+//Get di prova per vedere se funziona il pacchetto
+app.get('/prova', function(req, res)
+{
+	res.redirect("./pages/home.html");
+});
+
 
 //Get per il parse delle notizie dell'universita'
 app.get('/notizie_uni', function (req, res) {
 
-	//Paso l'url da prendere
+	//Passo l'url da prendere
 	url = 'http://webmagazine.unitn.it/news/ateneo';
 
 	//Invio una richiesta per accedere all'html
