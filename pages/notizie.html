@@ -4,28 +4,27 @@
 		<!-- Latest compiled and minified CSS -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
+		<!--Our css-->
+		<link rel="stylesheet" type="text/css" href="css/style.css">
+
+		<!-- Snippet for collapsing the navbar -->
+		<link rel="stylesheet" href="css/snippet.css">
+
+		<!--Javascript for include the header and the footer-->
+		<script type="text/javascript" src="scripts/include.js"></script>
+
+		<!-- Including JQuery -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
 		<meta charset="utf-8">
 
 		<title>UniCity</title>
 	</head>
 
-	<body>
+	<body onload="include()">
 
-		<nav class="navbar navbar-inverse">
-			<div class="container">
-				<div class="navbar-header">
-					<a class="navbar-brand" href="home.html">Unicity</a>
-				</div>
-				
-				<form class="navbar-form navbar-right" role="search">
-					<div class="form-group">
-						<input type="text" class="form-control" placeholder="Email">
-						<input type="text" class="form-control" placeholder="Password">
-					</div>
-					<button type="button" class="btn btn-primary">Sign In</button>
-				</form>
-			</div>
-		</nav>
+			
+			<div id="includeHeader"></div>
 	
 		<div class="container">
 			<ul class="nav nav-tabs nav-justified">
@@ -35,6 +34,6 @@
 				<li col="s3"><a href="luoghi.html" id="luoghi">Luoghi</a></li>
 			</ul>
 		</div>
-
+		<div id="includeFooter"></div>
 	</body>
 </html>

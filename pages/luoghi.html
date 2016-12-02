@@ -4,65 +4,32 @@
 
 		<!-- Latest compiled and minified CSS -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
-		<!-- Latest compiled and minified JavaScript -->
 		
-
+		<!--Our css-->
+		<link rel="stylesheet" type="text/css" href="css/style.css">
+		
 		<!-- Snippet for collapsing the navbar -->
 		<link rel="stylesheet" href="css/snippet.css">
 
+		<!--Javascript for include the header and the footer-->
+		<script type="text/javascript" src="scripts/include.js"></script>
 
 		<!-- Including JQuery -->
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
+
+		
 		<meta charset="utf-8">
 
 		<title>UniCity</title>
 	</head>
 
-	<body>
+		<body onload="include()">
 
-		<nav class="navbar navbar-inverse">
+			
+			<div id="includeHeader"></div>
+
 			<div class="container">
-
-		        <!-- Brand and toggle get grouped for better mobile display -->
-		        <div class="navbar-header">
-		        	<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1">
-		            	<span class="sr-only">Toggle navigation</span>
-		            	<span class="icon-bar"></span>
-		            	<span class="icon-bar"></span>
-		            	<span class="icon-bar"></span>
-		          	</button>
-		          	<a class="navbar-brand" href="#">Brand</a>
-		        </div>
-
-
-				<!-- Collect the nav links, forms, and other content for toggling -->
-		        <div class="collapse navbar-collapse" id="navbar-collapse-1">
-		          	<ul class="nav navbar-nav navbar-right">
-		            	<li><a href="#">Home</a></li>
-		            	<li><a href="#">About</a></li>
-		            	<li><a href="#">Services</a></li>
-			            <li><a href="#">Works</a></li>
-			            <li><a href="#">News</a></li>
-			            <li><a href="#">Contact</a></li>
-			            <li>
-			              	<a class="btn btn-default btn-outline btn-circle" data-toggle="collapse" href="#nav-collapse1" aria-expanded="false" aria-controls="nav-collapse1">Categories</a>
-			            </li>
-			        </ul>
-		          	<ul class="collapse nav navbar-nav nav-collapse" id="nav-collapse1">
-			            <li><a href="#">Web design</a></li>
-			            <li><a href="#">Development</a></li>
-			            <li><a href="#">Graphic design</a></li>
-			            <li><a href="#">Print</a></li>
-			            <li><a href="#">Motion</a></li>
-			            <li><a href="#">Mobile apps</a></li>
-		          	</ul>
-		        </div><!-- /.navbar-collapse -->
-	        </div>
-		</nav>
-	
-		<div class="container">
 			<ul class="nav nav-tabs nav-justified">
 				<li col="s3"><a href="home.html" id="novita">Novità</a></li>
 				<li col="s3"><a href="notizie.html" id="notizie">Tutte Le Notizie</a></li>
@@ -77,6 +44,7 @@
 				<a href="https://www.google.it/maps/place/Trento/@46.0804401,11.050316,12z/data=!3m1!4b1!4m5!3m4!1s0x478276cac9ce9ddb:0x27c6a299139ff547!8m2!3d46.0747793!4d11.1217486"><button type="button" class="btn btn-primary">Cerca!</button></a><br>
 			</div>
 		</div>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+		<div id="includeFooter"></div>
+		
 	</body>
 </html>
