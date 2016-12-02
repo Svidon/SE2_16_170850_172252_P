@@ -24,7 +24,7 @@ app.get('/', function(req, res)
 
 
 //Get per il parse delle notizie dell'universita'
-app.get('/parse', function (req, res) {
+app.get('/notizie_uni', function (req, res) {
 
 	//Paso l'url da prendere
 	url = 'http://webmagazine.unitn.it/news/ateneo';
@@ -52,14 +52,20 @@ app.get('/parse', function (req, res) {
         		var data = $(this);
         		description.push(data.text());
       		});
+
+      		$('a[href*="http://webmagazine.unitn.it/news/"]').each(function(){
+	        	var data = $(this);
+	        	urls.push(data.attr("href"));
+	      	});
     	}
 
     	//Aggiungo tutti gli oggetti alla lista json
     	for(var i = 0; i < title.length; i++){
     		//Oggetto temporaneo per salvarmi gli elementi come unico oggetto da pushare in json
-    		var obj = {title : "", description : ""};
+    		var obj = {title : "", description : "", url : ""};
     		obj.title = title[i];
     		obj.description = description[i];
+    		obj.url = urls[i];
 
     		json.push(obj);
     	}
