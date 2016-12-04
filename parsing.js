@@ -27,13 +27,13 @@ var uni_e = function scrape_events_uni() {
       		//Seleziono gli elementi che contengono il titolo e lo salvo in title
 	      	$('.titolo-evento').each(function(){
 	        	var data = $(this);
-	        	title.push(data.text());
+	        	title.push(data.children().first().text());
 	      	});
 
 	      	//Seleziono i tag <a> solo degli eventi e prendo il parametro href
-	      	$('.cal-ateneo-visibile').each(function(){
+	      	$('.cal-ateneo-visible').each(function(){
 	        	var data = $(this);
-	        	urls.push(data.children().first().attr(href));
+	        	urls.push(data.children().first().attr("href"));
 	      	});
     	}
     	else {
