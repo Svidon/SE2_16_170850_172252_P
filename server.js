@@ -1,15 +1,9 @@
 //Librerie per creare il server
 var http = require('http');
 var express = require('express');
-//Per scrivere nel file Json
-var fs = require('fs');
-//Per effettuare azioni sull'url dato
-var request = require('request');
-//JQuery plugin per fare lo scrape
-var cheerio = require('cheerio');
 
 //Mio pacchetto per fare lo scrape
-var scrape = require('parsing.js');
+var scrape = require('./parsing.js');
 
 //Instanzio express
 var app = express();
@@ -35,57 +29,16 @@ app.get('/prova', function(req, res)
 //Get per il parse delle notizie dell'universita'
 app.get('/notizie_uni', function (req, res) {
 
-	//Passo l'url da prendere
-	url = 'http://webmagazine.unitn.it/news/ateneo';
+	var check = scrape.getUniNews();
 
-	//Invio una richiesta per accedere all'html
-	request(url, function(error, response, html){
-    	if(!error){
-    		//Carico l'html
-      		var $ = cheerio.load(html);
+	if(check){
+		console.log("Scrape Done");
+	}
+	else {
+		console.log("Scrape not done");
+	}
 
-      		//Instanzio variabili utili: lista dei titoli, lista degli urls, lista delle descrizioni, lista degli oggetti da inserire nel json
-      		var title = [];
-      		var urls = [];
-      		var description = [];
-      		var json = [];
-
-      		//Seleziono gli elementi che contengono il titolo e lo salvo in title
-	      	$('a[href*="http://webmagazine.unitn.it/news/"]').each(function(){
-	        	var data = $(this);
-	        	title.push(data.text());
-	      	});
-
-	      	//Seleziono gli elementi che contengono la descrizione e lo salvo in description
-      		$('.sottotitolo-news').each(function(){
-        		var data = $(this);
-        		description.push(data.text());
-      		});
-
-      		$('a[href*="http://webmagazine.unitn.it/news/"]').each(function(){
-	        	var data = $(this);
-	        	urls.push(data.attr("href"));
-	      	});
-    	}
-
-    	//Aggiungo tutti gli oggetti alla lista json
-    	for(var i = 0; i < title.length; i++){
-    		//Oggetto temporaneo per salvarmi gli elementi come unico oggetto da pushare in json
-    		var obj = {title : "", description : "", url : ""};
-    		obj.title = title[i];
-    		obj.description = description[i];
-    		obj.url = urls[i];
-
-    		json.push(obj);
-    	}
-
-    	//Scrivo tutti gli oggetti salvati in un file json
-    	fs.writeFile('notizie_uni.json', JSON.stringify(json, null, 2), function(err){
-      		console.log('File successfully written! - Check your project directory for the output.json file');
-    	})
-
-    	res.redirect("./pages/home.html");
-	})
+    res.redirect("./pages/home.html");
 });
 
 
