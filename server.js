@@ -33,6 +33,15 @@ app.get('/notizie_uni', function (req, res) {
 });
 
 
+//Get per refreshare gli eventi dell'universita'
+app.get('/eventi_uni', function (req, res) {
+
+	var check = scrape.getUniEvents();
+
+    res.redirect("./pages/eventi_uni.html");
+});
+
+
 //Dove il server fa il listen
 app.listen(1337, '127.0.0.1');
 //Check dell'attivita

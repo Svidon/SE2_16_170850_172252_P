@@ -29,8 +29,9 @@
 		<div class="container">
 			<ul class="nav nav-tabs nav-justified">
 				<li col="s3"><a href="home.html" id="notizie_uni">Notizie Università</a></li>
-				<li col="s3" class="active"><a href="#" id="eventi_uni">Eventi Università</a></li>
-				<li col="s3"><a href="popolari.html" id="popolari">Popolari</a></li>
+				<li col="s3" class="active"><a href="#">Eventi Università</a></li>
+				<li col="s3"><a href="notizie_city.html" id="notizie_city">Notizie Comune</a></li>
+				<li col="s3"><a href="eventi_city.html" id="eventi_city">Eventi Città</a></li>
 				<li col="s3"><a href="luoghi.html" id="luoghi">Luoghi</a></li>
 			</ul>
 		</div>
@@ -38,6 +39,12 @@
 		<div class="container">
 			<div class="jumbotron" id="contenuti">
 			</div>
+		</div>
+
+		<div class="container">
+			<form id="toParse" action="http://127.0.0.1:1337/eventi_uni" method="get">
+				<button type="submit" class="btn btn-primary">Ricarica la Pagina</button>
+			</form>
 		</div>
 		
 		<div id="includeFooter"></div>
