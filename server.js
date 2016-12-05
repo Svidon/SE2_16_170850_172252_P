@@ -43,7 +43,7 @@ app.get('/eventi_uni', function (req, res) {
 });
 
 
-app.get('notizie_city', function(req, res){
+app.get('/notizie_city', function(req, res){
 
 	var check = scrape.getComuneNews();
 

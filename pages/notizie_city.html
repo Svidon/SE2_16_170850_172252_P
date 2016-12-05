@@ -21,7 +21,7 @@
 		<title>UniCity</title>
 	</head>
 
-	<body onload="include()">
+	<body onload="include(); showComuneNews()">
 			
 		<div id="includeHeader"></div>
 	
@@ -33,6 +33,19 @@
 				<li col="s3"><a href="eventi_city.html" id="eventi_city">Eventi Città</a></li>
 				<li col="s3"><a href="luoghi.html" id="luoghi">Luoghi</a></li>
 			</ul>
+		</div>
+
+		<br>
+
+		<div class="container">
+			<div class="jumbotron" id="contenuti">
+			</div>
+		</div>
+
+		<div class="container">
+			<form id="toParse" action="http://127.0.0.1:1337/notizie_city" method="get">
+				<button type="submit" class="btn btn-primary">Ricarica la Pagina</button>
+			</form>
 		</div>
 
 		<div id="includeFooter"></div>
