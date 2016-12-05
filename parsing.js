@@ -122,6 +122,70 @@ var uni_n = function scrape_news_uni() {
 
 
 
+
+//Funzione per lo scrape di notizie_uni (salva in un json con questo nome)
+var comune_n = function scrape_news_comune() {
+  
+  //Passo l'url da prendere
+  var url = 'http://www.comune.trento.it/Comunicazione/Il-Comune-informa/Ultime-notizie';
+
+  //Invio una richiesta per accedere all'html
+  request(url, function(error, response, html){
+      if(!error){       
+        //Carico l'html
+          var $ = cheerio.load(html);
+
+          //Instanzio variabili utili: lista dei titoli, lista degli urls, lista delle descrizioni, lista degli oggetti da inserire nel json
+          var title = [];
+          var urls = [];
+          var description = [];
+          var json = [];
+
+          //Seleziono gli elementi che contengono il titolo e lo salvo in title
+          $('.media-heading').each(function(){
+            var data = $(this);
+            title.push(data.text());
+          });
+
+          //Seleziono gli elementi che contengono la descrizione e lo salvo in description
+          $('.list-unstyled > li > p').each(function(){
+            var data = $(this);
+            description.push(data.text());
+          });
+
+          $('a[href*="http://www.comune.trento.it/Comunicazione/Il-Comune-informa/Ultime-notizie/"]').each(function(){
+            var data = $(this);
+            urls.push(data.attr("href"));
+          });
+      }
+      else {
+        return false;
+      }
+
+      //Aggiungo tutti gli oggetti alla lista json
+      for(var i = 0; i < title.length; i++){
+        //Oggetto temporaneo per salvarmi gli elementi come unico oggetto da pushare in json
+        var obj = {title : "", description : "", url : ""};
+        obj.title = title[i];
+        obj.description = description[i];
+        obj.url = urls[i];
+
+        json.push(obj);
+      }
+
+      //Scrivo tutti gli oggetti salvati in un file json
+      fs.writeFile('notizie_comune.json', JSON.stringify(json, null, 2), function(err){
+          console.log('File successfully written! - Check your project directory for the output.json file');
+    });
+      
+    });
+
+  return true;
+}
+
+
+
 //Esporto le funzioni
+exports.getComuneNews = comune_n;
 exports.getUniEvents = uni_e;
 exports.getUniNews = uni_n;

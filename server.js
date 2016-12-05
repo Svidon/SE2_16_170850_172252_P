@@ -19,6 +19,7 @@ app.get('/', function(req, res)
 	//Chiamo funzioni per recuperare i dati
 	scrape.getUniEvents();
 	scrape.getUniNews();
+	scrape.getComuneNews();
 
 	res.redirect("./pages/home.html");
 });
@@ -39,6 +40,14 @@ app.get('/eventi_uni', function (req, res) {
 	var check = scrape.getUniEvents();
 
     res.redirect("./pages/eventi_uni.html");
+});
+
+
+app.get('notizie_city', function(req, res){
+
+	var check = scrape.getComuneNews();
+
+	res.redirect("./pages/notizie_city.html");
 });
 
 
