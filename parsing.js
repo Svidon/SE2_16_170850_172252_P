@@ -90,6 +90,7 @@ var uni_n = function scrape_news_uni() {
         		description.push(data.text());
       		});
 
+          //Seleziono i tag <a> solo degli eventi e prendo il parametro href
       		$('a[href*="http://webmagazine.unitn.it/news/"]').each(function(){
 	        	var data = $(this);
 	        	urls.push(data.attr("href"));
@@ -141,18 +142,14 @@ var comune_n = function scrape_news_comune() {
           var description = [];
           var json = [];
 
-          //Seleziono gli elementi che contengono il titolo e lo salvo in title
+          //Seleziono gli elementi che contengono il titolo e descrizione e li salvo in title e description
           $('.media-heading').each(function(){
             var data = $(this);
             title.push(data.text());
+            description.push(data.siblings().text());
           });
 
-          //Seleziono gli elementi che contengono la descrizione e lo salvo in description
-          $('.list-unstyled > li > p').each(function(){
-            var data = $(this);
-            description.push(data.text());
-          });
-
+          //Seleziono i tag <a> solo degli eventi e prendo il parametro href
           $('a[href*="http://www.comune.trento.it/Comunicazione/Il-Comune-informa/Ultime-notizie/"]').each(function(){
             var data = $(this);
             urls.push(data.attr("href"));

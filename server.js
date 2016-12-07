@@ -43,6 +43,7 @@ app.get('/eventi_uni', function (req, res) {
 });
 
 
+//Get per refreshare le notizie della citta'
 app.get('/notizie_city', function(req, res){
 
 	var check = scrape.getComuneNews();
