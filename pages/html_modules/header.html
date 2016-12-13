@@ -17,13 +17,14 @@
 
 				<!-- Collect the nav links, forms, and other content for toggling -->
 		        <div class="collapse navbar-collapse" id="navbar-collapse-1">
-		          	<form class="navbar-form navbar-right" role="search">
-					<div class="form-group">
-						<input type="text" class="form-control pad" placeholder="Email">
-						<input type="text" class="form-control pad" placeholder="Password">
-					</div>
-					<button type="button" class="btn btn-primary">Sign In</button>
-				</form>
-		        </div><!-- /.navbar-collapse -->
+			        <form class="navbar-form navbar-right" action="http://127.0.0.1:1337/login" method="post">
+						<div class="form-group">
+							<input type="text" class="form-control pad" placeholder="Username" name="username" id="username">
+							<input type="password" class="form-control pad" placeholder="Password" name="password" id="password">
+						</div>
+						<button type="submit" id="login" class="btn btn-primary">Sign In</button>
+						<button type="button" id="register" class="btn btn-primary">Register</button>
+					</form>
+		        </div>
 	        </div>
 		</nav>

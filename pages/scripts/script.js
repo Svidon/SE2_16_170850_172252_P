@@ -4,7 +4,6 @@ function include(){
     $("#includeFooter").load("html_modules/footer.html");
 };
 
-
 //Funzione per mostrare gli eventi dell'universita'
 function showUniEv(){
 
@@ -22,10 +21,10 @@ function showUniEv(){
 	});
 }
 
-
+//Funzione per mostrare notizie
 function showComuneNews(){
 
-	//Richiedo il json per prendere gli eventi dell'universita'
+	//Richiedo il json per prendere gli eventi della citta'
 	$.getJSON("http://127.0.0.1:1337/notizie_comune.json", function (data) {
 		
 		//Genero codice html secondo i dati

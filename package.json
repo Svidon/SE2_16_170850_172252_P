@@ -18,8 +18,10 @@
   },
   "homepage": "https://github.com/Svidon/SE2_16_170850_172252_P#readme",
   "dependencies": {
+    "body-parser": "^1.15.2",
     "cheerio": "^0.22.0",
     "express": "^4.14.0",
+    "express-session": "^1.14.2",
     "fs": "0.0.1-security",
     "node-json2html": "^1.1.1",
     "request": "^2.79.0"
