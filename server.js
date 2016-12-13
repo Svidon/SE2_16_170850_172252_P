@@ -82,11 +82,15 @@ app.post('/register', function(req, res) {
 	//Controllo che la richiesta ci sia
 	if (typeof req.body !== 'undefined' && req.body){
 		//Controllo che username ci sia
-		if (typeof req.body.username !== 'undefined' && req.body.username){
+		if (typeof req.body.new_username !== 'undefined' && req.body.new_username){
 			//Controllo che password ci sia
-			if (typeof req.body.password !== 'undefined' && req.body.password){
-				var tmp = user.getUser(utente, dict);
+			if (typeof req.body.new_password !== 'undefined' && req.body.new_password){
+				//Salvo nome utente e password
+				utente = req.body.new_username;
+				pass = req.body.new_password;
 
+				//Controllo se l'utente esiste, altrimenti non lo aggiungo
+				var tmp = user.getUser(utente, dict);
 				if(tmp == null){
 					user.add(utente, pass, dict);
 					console.log("Utente aggiunto");
@@ -107,7 +111,7 @@ app.post('/register', function(req, res) {
 		console.log("Request body undefined");
 	}
 
-	res.redirect("./pages/home.html");
+	res.redirect("./pages/registered.html");
 });
 
 
@@ -119,42 +123,42 @@ app.post('/login', function(req, res) {
 
 	//Controllo che la richiesta ci sia
 	if (typeof req.body !== 'undefined' && req.body){
-		
 		//Controllo che ci sia username
-		if (typeof req.body.username !== 'undefined' && req.body.username){
-            //Salvo l'username
-			utente = req.body.username;
-		}
-		else{ 
-			console.log("User undefined");
-		}
-		//Controllo che ci sia password
-		if (typeof req.body.password !== 'undefined' && req.body.password){
-            //Salvo la password
-    		pass = req.body.password;
-    	}
-		else{ 
-			console.log("Password undefined");
-		}
+		if (typeof req.body.username !== 'undefined' && req.body.username){            
+			//Controllo che ci sia password
+			if (typeof req.body.password !== 'undefined' && req.body.password){
+	            //Salvo nome utente e password
+	    		utente = req.body.username;
+	    		pass = req.body.password;
 
-		var tmp = user.getUser(utente, dict);
-
-		if(tmp != null){
-			if(pass == tmp.pswd){
-				if(req.session.user_id == null){
-					req.session.user_id = utente;
-					console.log("Loggato");
+				//Controllo se l'utente esiste
+				var tmp = user.getUser(utente, dict);				
+				if(tmp != null){
+					//Controllo se la password e' corretta
+					if(pass == tmp.pswd){
+						if(req.session.user_id == null){
+							//Setto la sessione al nome dell'utente
+							req.session.user_id = utente;
+							console.log("Loggato");
+						}
+						else{
+							console.log("Già loggato");
+						}
+					}
+					else{
+						console.log("Password Errata");
+					}
 				}
 				else{
-					console.log("Già loggato");
+					console.log("Utente non esistente!");
 				}
+	    	}
+	    	else{ 
+				console.log("Password undefined");
 			}
-			else{
-				console.log("Password Errata");
-			}
-		}
-		else{
-			console.log("Utente non esistente!");
+	    }
+		else{ 
+			console.log("User undefined");
 		}
 	}
 	else{
