@@ -1,6 +1,20 @@
-//Funzione per includere header e footer
+//Funzione per includere header (in base al login) e footer
 function include(){
-    $("#includeHeader").load("html_modules/header.html");
+
+	$.get("/getLogged", function(data) {
+		console.log(typeof data);
+    	if(data === ''){
+    		$("#includeHeader").load("html_modules/header.html");
+    	}
+    	else{
+    		$("#includeHeader").load("html_modules/header_logged.html", function () {
+    			var hello = "<font color=\"#9d9d9d\">Hello, " + data + "!</font>";
+    		$("#hello").html(hello);
+    		});
+    		
+    	}
+	});
+    
     $("#includeFooter").load("html_modules/footer.html");
 };
 

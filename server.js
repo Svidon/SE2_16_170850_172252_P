@@ -14,14 +14,14 @@ var app = express();
 //Setto la porta, la directory e il bodyParser
 app.set('port', (process.env.PORT || 1337));
 app.use('/', express.static(__dirname + '/'));
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({extended: true}));
 
 //Uso le sessioni
 app.use(session({ 
 	//Stringa per la sicurezza (non usata)
 	secret: 'string for the hash', 
 	//Setto validita' del cookie
-	cookie: { maxAge: 60000 }
+	cookie: { maxAge: 60000000 }
 }));
 
 
@@ -93,22 +93,9 @@ app.post('/register', function(req, res) {
 				var tmp = user.getUser(utente, dict);
 				if(tmp == null){
 					user.add(utente, pass, dict);
-					console.log("Utente aggiunto");
-				}
-				else{
-					console.log("Utente già registrato");
 				}
 			}
-			else{
-				console.log("Password undefined");
-			}
 		}
-		else{
-			console.log("Username undefined");
-		}
-	}
-	else{
-		console.log("Request body undefined");
 	}
 
 	res.redirect("./pages/registered.html");
@@ -139,30 +126,11 @@ app.post('/login', function(req, res) {
 						if(req.session.user_id == null){
 							//Setto la sessione al nome dell'utente
 							req.session.user_id = utente;
-							console.log("Loggato");
-						}
-						else{
-							console.log("Già loggato");
 						}
 					}
-					else{
-						console.log("Password Errata");
-					}
-				}
-				else{
-					console.log("Utente non esistente!");
 				}
 	    	}
-	    	else{ 
-				console.log("Password undefined");
-			}
 	    }
-		else{ 
-			console.log("User undefined");
-		}
-	}
-	else{
-		console.log("Request body undefined");
 	}
 
 	res.redirect("./pages/home.html");
@@ -172,18 +140,19 @@ app.post('/login', function(req, res) {
 //Get per il logout
 app.get('/logout', function(req, res) 
 {
-	//Controllo se esiste la sessione
-	if (request.session.user_id != null){
-		request.session.user_id = null;
-		console.log("Sloggato");
-  	}
-  	else{
-  		console.log("Già sloggato");
-  	}
+	//Cancello la sessione
+	req.session.user_id = null;
 	
 	res.redirect("./pages/home.html");
 });
 
+
+//Get per il nome utente loggato
+app.get('/getLogged', function(req, res) {
+	
+	//Mando come risposta il nome della sessione
+	res.send(req.session.user_id);
+});
 
 //Dove il server fa il listen
 app.listen(1337, '127.0.0.1');

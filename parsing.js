@@ -51,9 +51,7 @@ var uni_e = function scrape_events_uni() {
     	}
 
     	//Scrivo tutti gli oggetti salvati in un file json
-    	fs.writeFile('eventi_uni.json', JSON.stringify(json, null, 2), function(err){
-      		console.log('File successfully written! - Check your project directory for the output.json file');
-		});
+    	fs.writeFile('eventi_uni.json', JSON.stringify(json, null, 2), function(err){});
 	});
 
 	return true;
@@ -112,9 +110,7 @@ var uni_n = function scrape_news_uni() {
     	}
 
     	//Scrivo tutti gli oggetti salvati in un file json
-    	fs.writeFile('notizie_uni.json', JSON.stringify(json, null, 2), function(err){
-      		console.log('File successfully written! - Check your project directory for the output.json file');
-		});
+    	fs.writeFile('notizie_uni.json', JSON.stringify(json, null, 2), function(err){});
     	
     });
 
@@ -171,9 +167,7 @@ var comune_n = function scrape_news_comune() {
       }
 
       //Scrivo tutti gli oggetti salvati in un file json
-      fs.writeFile('notizie_comune.json', JSON.stringify(json, null, 2), function(err){
-          console.log('File successfully written! - Check your project directory for the output.json file');
-    });
+      fs.writeFile('notizie_comune.json', JSON.stringify(json, null, 2), function(err){});
       
     });
 
