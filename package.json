@@ -23,6 +23,7 @@
     "express": "^4.14.0",
     "express-session": "^1.14.2",
     "fs": "0.0.1-security",
+    "jasmine": "^2.5.2",
     "node-json2html": "^1.1.1",
     "request": "^2.79.0"
   }

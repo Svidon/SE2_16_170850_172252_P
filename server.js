@@ -7,6 +7,7 @@ var scrape = require('./parsing.js');
 var user = require('./utenti.js');
 //Libreria per gestire la sessione
 var session = require('express-session');
+//Libreria per il parse della richiesta
 var bodyParser = require('body-parser');
 
 //Instanzio express
@@ -43,7 +44,8 @@ app.get('/', function(req, res)
 	//Imposto sessione a null
 	req.session.user_id = null;
 
-	res.redirect("./pages/home.html");
+	//Mando il codice e faccio redirect
+	res.redirect('./pages/home.html');
 });
 
 
@@ -52,7 +54,14 @@ app.get('/notizie_uni', function (req, res) {
 
 	var check = scrape.getUniNews();
 
-    res.redirect("./pages/home.html");
+	/*if(check){
+		res.writeHead(200, {'Location': './pages/notizie_uni.html'});
+	}
+	else{
+		res.writeHead(304, {'Location': './pages/notizie_uni.html'});
+	}*/
+
+	res.redirect('./pages/home.html');
 });
 
 
@@ -61,7 +70,14 @@ app.get('/eventi_uni', function (req, res) {
 
 	var check = scrape.getUniEvents();
 
-    res.redirect("./pages/eventi_uni.html");
+	/*if(check){
+		res.writeHead(200, {'Location': './pages/eventi_uni.html'});
+	}
+	else{
+		res.writeHead(304, {'Location': './pages/eventi_uni.html'});
+	}*/
+
+	res.redirect('./pages/eventi_uni.html');
 });
 
 
@@ -70,7 +86,14 @@ app.get('/notizie_city', function(req, res){
 
 	var check = scrape.getComuneNews();
 
-	res.redirect("./pages/notizie_city.html");
+	/*if(check){
+		res.writeHead(200, {'Location': './pages/notizie_city.html'});
+	}
+	else{
+		res.writeHead(304, {'Location': './pages/notizie_city.html'});
+	}*/
+
+	res.redirect('./pages/notizie_city.html');
 });
 
 
@@ -93,12 +116,26 @@ app.post('/register', function(req, res) {
 				var tmp = user.getUser(utente, dict);
 				if(tmp == null){
 					user.add(utente, pass, dict);
+					//res.writeHead(200, {'Location': './pages/registered.html'});
+					res.redirect('./pages/registered.html');
+				}
+				else{
+					//res.writeHead(401, {'Location': './pages/home.html'});
 				}
 			}
+			else{
+				//res.writeHead(400, {'Location': './pages/home.html'});
+			}
+		}
+		else{
+			//res.writeHead(400, {'Location': './pages/home.html'});
 		}
 	}
+	else{
+		//res.writeHead(400, {'Location': './pages/home.html'});
+	}
 
-	res.redirect("./pages/registered.html");
+	res.redirect('./pages/home.html');
 });
 
 
@@ -126,14 +163,33 @@ app.post('/login', function(req, res) {
 						if(req.session.user_id == null){
 							//Setto la sessione al nome dell'utente
 							req.session.user_id = utente;
+							//res.writeHead(200, {'Location': './pages/home.html'});
+						}
+						else{
+							//res.writeHead(304, {'Location': './pages/home.html'});
 						}
 					}
+					else{
+						//res.writeHead(401, {'Location': './pages/home.html'});
+					}
+				}
+				else{
+					//res.writeHead(400, {'Location': './pages/home.html'});
 				}
 	    	}
+	    	else{
+	    		//res.writeHead(400, {'Location': './pages/home.html'});
+	    	}
+	    }
+	    else{
+	    	//res.writeHead(400, {'Location': './pages/home.html'});
 	    }
 	}
+	else{
+		//res.writeHead(400, {'Location': './pages/home.html'});
+	}
 
-	res.redirect("./pages/home.html");
+	res.redirect('./pages/home.html');
 });
 
 
@@ -143,6 +199,7 @@ app.get('/logout', function(req, res)
 	//Cancello la sessione
 	req.session.user_id = null;
 	
+	//res.writeHead(200, {'Location': './pages/home.html'});
 	res.redirect("./pages/home.html");
 });
 
@@ -150,7 +207,7 @@ app.get('/logout', function(req, res)
 //Get per il nome utente loggato
 app.get('/getLogged', function(req, res) {
 	
-	//Mando come risposta il nome della sessione
+	//Mando come risposta il nome della sessione (manda gia' 200 come statusCode)
 	res.send(req.session.user_id);
 });
 
